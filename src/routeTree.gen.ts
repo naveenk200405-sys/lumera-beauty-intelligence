@@ -10,33 +10,69 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiYoucamResultRouteImport } from './routes/api/youcam/result'
+import { Route as ApiYoucamScanRouteImport } from './routes/api/youcam/scan'
+import { Route as ApiYoucamStatusRouteImport } from './routes/api/youcam/status'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiYoucamResultRoute = ApiYoucamResultRouteImport.update({
+  id: '/api/youcam/result',
+  path: '/api/youcam/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiYoucamScanRoute = ApiYoucamScanRouteImport.update({
+  id: '/api/youcam/scan',
+  path: '/api/youcam/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiYoucamStatusRoute = ApiYoucamStatusRouteImport.update({
+  id: '/api/youcam/status',
+  path: '/api/youcam/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/youcam/result': typeof ApiYoucamResultRoute
+  '/api/youcam/scan': typeof ApiYoucamScanRoute
+  '/api/youcam/status': typeof ApiYoucamStatusRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/youcam/result': typeof ApiYoucamResultRoute
+  '/api/youcam/scan': typeof ApiYoucamScanRoute
+  '/api/youcam/status': typeof ApiYoucamStatusRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/youcam/result': typeof ApiYoucamResultRoute
+  '/api/youcam/scan': typeof ApiYoucamScanRoute
+  '/api/youcam/status': typeof ApiYoucamStatusRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/api/youcam/result' | '/api/youcam/scan' | '/api/youcam/status'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/youcam/result' | '/api/youcam/scan' | '/api/youcam/status'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/youcam/result'
+    | '/api/youcam/scan'
+    | '/api/youcam/status'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiYoucamResultRoute: typeof ApiYoucamResultRoute
+  ApiYoucamScanRoute: typeof ApiYoucamScanRoute
+  ApiYoucamStatusRoute: typeof ApiYoucamStatusRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +84,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/youcam/result': {
+      id: '/api/youcam/result'
+      path: '/api/youcam/result'
+      fullPath: '/api/youcam/result'
+      preLoaderRoute: typeof ApiYoucamResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/youcam/scan': {
+      id: '/api/youcam/scan'
+      path: '/api/youcam/scan'
+      fullPath: '/api/youcam/scan'
+      preLoaderRoute: typeof ApiYoucamScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/youcam/status': {
+      id: '/api/youcam/status'
+      path: '/api/youcam/status'
+      fullPath: '/api/youcam/status'
+      preLoaderRoute: typeof ApiYoucamStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiYoucamResultRoute: ApiYoucamResultRoute,
+  ApiYoucamScanRoute: ApiYoucamScanRoute,
+  ApiYoucamStatusRoute: ApiYoucamStatusRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
